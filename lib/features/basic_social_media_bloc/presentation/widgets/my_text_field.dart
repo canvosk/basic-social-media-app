@@ -1,3 +1,4 @@
+import 'package:basic_social_media_app/config/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -49,7 +50,7 @@ class MyTextField extends StatelessWidget {
 				),
 				focusedBorder: OutlineInputBorder(
 					borderRadius: BorderRadius.circular(12.w),
-          borderSide: const BorderSide(color: Colors.transparent),
+          borderSide: const BorderSide(color: golbat140),
 				),
 				fillColor: Colors.grey.shade200,
 				filled: true,
