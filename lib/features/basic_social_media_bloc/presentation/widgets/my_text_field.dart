@@ -29,7 +29,7 @@ class MyTextField extends StatelessWidget {
 		this.errorMsg,
 		this.onChanged
   });
-	
+
 	@override
 	Widget build(BuildContext context) {
 		return TextFormField(
@@ -39,6 +39,7 @@ class MyTextField extends StatelessWidget {
 			keyboardType: keyboardType,
 			focusNode: focusNode,
 			onTap: onTap,
+      onTapOutside: (point) => FocusManager.instance.primaryFocus?.unfocus(),
 			textInputAction: TextInputAction.next,
 			onChanged: onChanged,
       decoration: InputDecoration(
@@ -60,5 +61,4 @@ class MyTextField extends StatelessWidget {
 			),
     );
 	}
-
 }
