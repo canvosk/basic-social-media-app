@@ -1,4 +1,5 @@
 import 'package:basic_social_media_app/config/theme/colors.dart';
+import 'package:basic_social_media_app/core/helpers/validators.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,19 +14,18 @@ class LoginPageTextWidgets extends StatefulWidget {
 }
 
 class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
-
   bool isObscured = true;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  setVisible(){
+  setVisible() {
     setState(() {
       isObscured = !isObscured;
     });
   }
 
-  clearEmail(){
+  clearEmail() {
     emailController.clear();
   }
 
@@ -34,6 +34,7 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
     return Column(
       children: [
         MyTextField(
+          validator: (string) => emailValidator(emailController.text),
           controller: emailController,
           hintText: "E-mail",
           obscureText: false,
@@ -45,7 +46,7 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
           suffixIcon: Padding(
             padding: EdgeInsets.only(right: 12.w),
             child: GestureDetector(
-              onTap: ()=>clearEmail,
+              onTap: () => clearEmail,
               child: const Icon(
                 Icons.cancel,
                 color: golbat140,
@@ -57,6 +58,7 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
           height: 16.h,
         ),
         MyTextField(
+          validator: (string) => passwordValidator(passwordController.text),
           controller: passwordController,
           hintText: "Password",
           obscureText: isObscured,
