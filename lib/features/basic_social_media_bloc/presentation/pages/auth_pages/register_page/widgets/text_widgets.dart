@@ -4,25 +4,32 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/presenta
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginPageTextWidgets extends StatefulWidget {
-  const LoginPageTextWidgets({
+class RegisterPageTextWidgets extends StatefulWidget {
+  const RegisterPageTextWidgets({
     super.key,
   });
 
   @override
-  State<LoginPageTextWidgets> createState() => _LoginPageTextWidgetsState();
+  State<RegisterPageTextWidgets> createState() =>
+      _RegisterPageTextWidgetsState();
 }
 
-class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
-  
+class _RegisterPageTextWidgetsState extends State<RegisterPageTextWidgets> {
   bool isObscured = true;
 
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  final IconData unVisibleIcon = Icons.visibility_off;
+  final IconData visibleIcon = Icons.visibility;
+
+  late IconData passwordSuffix = unVisibleIcon;
 
   setVisible() {
     setState(() {
       isObscured = !isObscured;
+      isObscured ? passwordSuffix = unVisibleIcon : passwordSuffix = visibleIcon;
     });
   }
 
@@ -35,8 +42,22 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
     return Column(
       children: [
         MyTextField(
-          validator: (string) => emailValidator(emailController.text),
+          controller: nameController,
+          validator: (name) => nameValidator(nameController.text),
+          hintText: "Name",
+          obscureText: false,
+          keyboardType: TextInputType.emailAddress,
+          prefixIcon: const Icon(
+            Icons.person,
+            color: golbat140,
+          ),
+        ),
+        SizedBox(
+          height: 16.h,
+        ),
+        MyTextField(
           controller: emailController,
+          validator: (string) => emailValidator(emailController.text),
           hintText: "E-mail",
           obscureText: false,
           keyboardType: TextInputType.emailAddress,
@@ -44,10 +65,10 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
             Icons.email_outlined,
             color: golbat140,
           ),
-          suffixIcon: Padding(
-            padding: EdgeInsets.only(right: 12.w),
-            child: GestureDetector(
-              onTap: () => clearEmail,
+          suffixIcon: GestureDetector(
+            onTap: clearEmail,
+            child: Padding(
+              padding: EdgeInsets.only(right: 12.w),
               child: const Icon(
                 Icons.cancel,
                 color: golbat140,
@@ -59,8 +80,8 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
           height: 16.h,
         ),
         MyTextField(
-          validator: (string) => passwordValidator(passwordController.text),
           controller: passwordController,
+          validator: (string) => passwordValidator(passwordController.text),
           hintText: "Password",
           obscureText: isObscured,
           keyboardType: TextInputType.emailAddress,
@@ -68,29 +89,17 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
             Icons.lock,
             color: golbat140,
           ),
-          suffixIcon: Padding(
-            padding: EdgeInsets.only(right: 12.w),
-            child: GestureDetector(
-              onTap: () => setVisible(),
-              child: const Icon(
-                Icons.remove_red_eye,
+          suffixIcon: GestureDetector(
+            onTap: setVisible,
+            child: Padding(
+              padding: EdgeInsets.only(right: 12.w),
+              child: Icon(
+                passwordSuffix,
                 color: golbat140,
               ),
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextButton(
-            onPressed: () {},
-            child: const Text(
-              "Forgot password?",
-              style: TextStyle(
-                color: normalTextColor,
-              ),
-            ),
-          ),
-        )
       ],
     );
   }

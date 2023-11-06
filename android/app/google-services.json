@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "553128159485",
+    "project_id": "basic-social-media-app-470c7",
+    "storage_bucket": "basic-social-media-app-470c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553128159485:android:1b56d02e413733e1bff694",
+        "android_client_info": {
+          "package_name": "com.cbbyazilim.basic_social_media_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaYYl8c8kaekJB4TX-oRubejJCcx2n0NY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

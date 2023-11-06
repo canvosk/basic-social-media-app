@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   email_validator: ^2.1.17
+  firebase_core: ^2.21.0
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.0
