@@ -1,6 +1,8 @@
 import 'package:basic_social_media_app/config/routes/routes.dart';
 import 'package:basic_social_media_app/config/theme/app_theme.dart';
 import 'package:basic_social_media_app/firebase_options.dart';
+import 'package:basic_social_media_app/simple_bloc_observer.dart';
+import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +14,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  Bloc.observer = SimpleBlocObserver();
   runApp(const MainApp());
 }
 
