@@ -16,6 +16,30 @@ class UserEntitiy extends Equatable {
     required this.profileImageUrl,
   });
 
+  static const empty = UserEntitiy(
+    userId: '',
+    name: '',
+    email: '',
+    password: '',
+    profileImageUrl: '',
+  );
+
+  UserEntitiy copyWith({
+    String? userId,
+    String? name,
+    String? email,
+    String? password,
+    String? profileImageUrl,
+  }) {
+    return UserEntitiy(
+      userId: userId ?? this.userId,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      profileImageUrl: profileImageUrl ?? this.profileImageUrl,
+    );
+  }
+
   Map<String, Object?> toMap() {
     return {
       'userId': userId,

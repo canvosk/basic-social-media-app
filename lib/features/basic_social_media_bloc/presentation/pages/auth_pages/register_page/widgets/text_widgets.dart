@@ -5,8 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterPageTextWidgets extends StatefulWidget {
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
   const RegisterPageTextWidgets({
     super.key,
+    required this.nameController,
+    required this.emailController,
+    required this.passwordController,
   });
 
   @override

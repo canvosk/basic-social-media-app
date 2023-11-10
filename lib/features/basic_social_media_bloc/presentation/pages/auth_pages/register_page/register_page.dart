@@ -1,7 +1,10 @@
 import 'package:basic_social_media_app/config/theme/colors.dart';
 import 'package:basic_social_media_app/config/theme/text_styles.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/register_bloc/register_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/auth_pages/register_page/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,81 +13,116 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+    Widget buttonChild = Text(
+      "Register",
+      style: bodyXLargeText(bgColor),
+    );
 
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
+    final formKey = GlobalKey<FormState>();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 18.w),
-      child: Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: golbat140,
-                size: 30.w,
+      child: BlocListener<RegisterBloc, RegisterState>(
+        listener: (context, state) {
+          if (state is RegisterSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Kayıt Olundu!')),
+            );
+          } else if(state is Registering){
+            buttonChild = const Center(child: CircularProgressIndicator(),);
+          } else if(state is RegisterFailed){
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Kayıt Olurken Bir Hata Oluştu!')),
+            );
+          }
+        },
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: golbat140,
+                  size: 30.w,
+                ),
+                onPressed: () {
+                  context.pop();
+                },
               ),
-              onPressed: () {
-                context.pop();
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 50.h, horizontal: 32.w),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.6,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Register",
-                          style: headingText(headerTextColor),
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        Text(
-                          "Basic Social Media App",
-                          style: bodyLargeText(normalTextColor),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    const RegisterPageTextWidgets(),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.w),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 50.h, horizontal: 32.w),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Register",
+                            style: headingText(headerTextColor),
                           ),
-                          backgroundColor: headerTextColor,
-                          fixedSize:
-                              Size(MediaQuery.of(context).size.width, 50.h)),
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Processing Data')),
-                          );
-                        }
-                      },
-                      child: Text(
-                        "Register",
-                        style: bodyXLargeText(bgColor),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          Text(
+                            "Basic Social Media App",
+                            style: bodyLargeText(normalTextColor),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      RegisterPageTextWidgets(
+                        nameController: nameController,
+                        emailController: emailController,
+                        passwordController: passwordController,
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.w),
+                            ),
+                            backgroundColor: headerTextColor,
+                            fixedSize:
+                                Size(MediaQuery.of(context).size.width, 50.h)),
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            
+                            UserEntitiy myUser = UserEntitiy.empty;
+															myUser = myUser.copyWith(
+																email: emailController.text,
+																name: nameController.text,
+                                password: passwordController.text,
+															);
+
+                              context.read<RegisterBloc>().add(
+																	Register(
+																		myUser,
+																	)
+																);
+
+                          }
+                        },
+                        child: buttonChild,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
