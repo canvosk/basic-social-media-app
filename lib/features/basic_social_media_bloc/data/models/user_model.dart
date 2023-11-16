@@ -37,6 +37,7 @@ class UserModel extends UserEntitiy {
     );
   }
 
+  @override
   UserModel copyWith({
     String? userId,
     String? name,

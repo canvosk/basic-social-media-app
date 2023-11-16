@@ -5,6 +5,7 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/data/dat
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/models/user_model.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/authentication_repository.dart';
+import 'package:flutter/material.dart';
 
 class AuthenticationRepositoryImp implements AuthenticationRepository {
   final AuthenticationService _authenticationService;
@@ -23,9 +24,10 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
     try {
       UserModel user = UserModel.fromEntity(myUser);
       user = await _authenticationService.register(user);
-      String imageuRL = await _storageService.getUnknownImageUrl();
-      user.copyWith(
-        profileImageUrl: imageuRL,
+      String imageUrl = await _storageService.getUnknownImageUrl();
+      debugPrint("profil resmi: $imageUrl");
+      user = user.copyWith(
+        profileImageUrl: imageUrl,
       );
       await _authenticationService.setUserData(user);
       return user.toEntity();

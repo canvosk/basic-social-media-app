@@ -16,7 +16,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         UserEntitiy user = await _registerUseCase.call(params: event.user);
         emit(RegisterSuccess(user));
       } catch (e) {
-        emit(RegisterFailed(e.toString()));
+        emit(RegisterFailed(e.toString())); 
       }
     });
   }

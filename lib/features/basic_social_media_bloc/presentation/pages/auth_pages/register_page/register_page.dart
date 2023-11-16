@@ -13,14 +13,15 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
     Widget buttonChild = Text(
       "Register",
       style: bodyXLargeText(bgColor),
     );
-
-    final nameController = TextEditingController();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
 
     final formKey = GlobalKey<FormState>();
     return Padding(
@@ -31,9 +32,11 @@ class RegisterPage extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Kayıt Olundu!')),
             );
-          } else if(state is Registering){
-            buttonChild = const Center(child: CircularProgressIndicator(),);
-          } else if(state is RegisterFailed){
+          } else if (state is Registering) {
+            buttonChild = const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is RegisterFailed) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Kayıt Olurken Bir Hata Oluştu!')),
             );
@@ -101,18 +104,15 @@ class RegisterPage extends StatelessWidget {
                           if (formKey.currentState!.validate()) {
                             
                             UserEntitiy myUser = UserEntitiy.empty;
-															myUser = myUser.copyWith(
-																email: emailController.text,
-																name: nameController.text,
-                                password: passwordController.text,
-															);
+                            myUser = myUser.copyWith(
+                              email: emailController.text,
+                              name: nameController.text,
+                              password: passwordController.text,
+                            );
 
-                              context.read<RegisterBloc>().add(
-																	Register(
-																		myUser,
-																	)
-																);
-
+                            context.read<RegisterBloc>().add(Register(
+                                  myUser,
+                                ));
                           }
                         },
                         child: buttonChild,

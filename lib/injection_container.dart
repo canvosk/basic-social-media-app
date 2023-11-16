@@ -8,7 +8,7 @@ import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
-Future<void> initilazeDependencies() async {
+Future<void> initializeDependencies() async {
   // Dependencies
 
   sl.registerSingleton<AuthenticationService>(AuthenticationService());

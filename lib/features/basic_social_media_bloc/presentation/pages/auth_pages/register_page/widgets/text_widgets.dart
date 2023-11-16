@@ -23,9 +23,9 @@ class RegisterPageTextWidgets extends StatefulWidget {
 class _RegisterPageTextWidgetsState extends State<RegisterPageTextWidgets> {
   bool isObscured = true;
 
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  // final nameController = TextEditingController();
+  // final emailController = TextEditingController();
+  // final passwordController = TextEditingController();
 
   final IconData unVisibleIcon = Icons.visibility_off;
   final IconData visibleIcon = Icons.visibility;
@@ -40,7 +40,7 @@ class _RegisterPageTextWidgetsState extends State<RegisterPageTextWidgets> {
   }
 
   clearEmail() {
-    emailController.clear();
+    widget.emailController.clear();
   }
 
   @override
@@ -48,8 +48,8 @@ class _RegisterPageTextWidgetsState extends State<RegisterPageTextWidgets> {
     return Column(
       children: [
         MyTextField(
-          controller: nameController,
-          validator: (name) => nameValidator(nameController.text),
+          controller: widget.nameController,
+          validator: (name) => nameValidator(widget.nameController.text),
           hintText: "Name",
           obscureText: false,
           keyboardType: TextInputType.emailAddress,
@@ -62,8 +62,8 @@ class _RegisterPageTextWidgetsState extends State<RegisterPageTextWidgets> {
           height: 16.h,
         ),
         MyTextField(
-          controller: emailController,
-          validator: (string) => emailValidator(emailController.text),
+          controller: widget.emailController,
+          validator: (string) => emailValidator(widget.emailController.text),
           hintText: "E-mail",
           obscureText: false,
           keyboardType: TextInputType.emailAddress,
@@ -86,8 +86,8 @@ class _RegisterPageTextWidgetsState extends State<RegisterPageTextWidgets> {
           height: 16.h,
         ),
         MyTextField(
-          controller: passwordController,
-          validator: (string) => passwordValidator(passwordController.text),
+          controller: widget.passwordController,
+          validator: (string) => passwordValidator(widget.passwordController.text),
           hintText: "Password",
           obscureText: isObscured,
           keyboardType: TextInputType.emailAddress,
