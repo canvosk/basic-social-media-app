@@ -15,10 +15,17 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
       this._authenticationService, this._storageService);
 
   @override
-  Future<UserEntitiy> login() {
-    throw UnimplementedError();
+  Future<UserEntitiy> login({required UserEntitiy myUser}) async{
+    try {
+      UserModel user = UserModel.fromEntity(myUser);
+      user = await _authenticationService.login(myUser: user);
+      return user.toEntity();
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
-
+ 
   @override
   Future<UserEntitiy> register(UserEntitiy myUser) async {
     try {

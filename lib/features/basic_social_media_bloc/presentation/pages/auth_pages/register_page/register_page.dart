@@ -13,7 +13,6 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final nameController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
@@ -29,14 +28,28 @@ class RegisterPage extends StatelessWidget {
       child: BlocListener<RegisterBloc, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {
+            buttonChild = Text(
+              "Register",
+              style: bodyXLargeText(bgColor),
+            );
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Kayıt Olundu!')),
             );
+            Future.delayed(const Duration(seconds: 1), () {
+              return context.go("/home-page");
+            });
           } else if (state is Registering) {
             buttonChild = const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: bgColor,
+                strokeWidth: 3,
+              ),
             );
           } else if (state is RegisterFailed) {
+            buttonChild = Text(
+              "Register",
+              style: bodyXLargeText(bgColor),
+            );
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Kayıt Olurken Bir Hata Oluştu!')),
             );
@@ -92,30 +105,33 @@ class RegisterPage extends StatelessWidget {
                       SizedBox(
                         height: 16.h,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.w),
-                            ),
-                            backgroundColor: headerTextColor,
-                            fixedSize:
-                                Size(MediaQuery.of(context).size.width, 50.h)),
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            
-                            UserEntitiy myUser = UserEntitiy.empty;
-                            myUser = myUser.copyWith(
-                              email: emailController.text,
-                              name: nameController.text,
-                              password: passwordController.text,
-                            );
+                      BlocBuilder<RegisterBloc, RegisterState>(
+                        builder: (context, state) {
+                          return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.w),
+                                ),
+                                backgroundColor: headerTextColor,
+                                fixedSize: Size(
+                                    MediaQuery.of(context).size.width, 50.h)),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                UserEntitiy myUser = UserEntitiy.empty;
+                                myUser = myUser.copyWith(
+                                  email: emailController.text,
+                                  name: nameController.text,
+                                  password: passwordController.text,
+                                );
 
-                            context.read<RegisterBloc>().add(Register(
-                                  myUser,
-                                ));
-                          }
+                                context.read<RegisterBloc>().add(Register(
+                                      myUser,
+                                    ));
+                              }
+                            },
+                            child: buttonChild,
+                          );
                         },
-                        child: buttonChild,
                       ),
                     ],
                   ),

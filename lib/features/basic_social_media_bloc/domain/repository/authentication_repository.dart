@@ -2,7 +2,7 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/e
 
 abstract class AuthenticationRepository {
 
-  Future<UserEntitiy> login();
+  Future<UserEntitiy> login({required UserEntitiy myUser});
 
   Future<UserEntitiy> register(UserEntitiy myUser);
 

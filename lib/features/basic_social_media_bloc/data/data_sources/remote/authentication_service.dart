@@ -13,8 +13,23 @@ class AuthenticationService {
 		FirebaseAuth? firebaseAuth,
 	}) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
-  Future<UserModel?> login({required String email, required String password}) async {
-    return null;
+  Future<UserModel> login({required UserModel myUser}) async {
+    try {
+      UserCredential user = await _firebaseAuth.signInWithEmailAndPassword(
+				email: myUser.email, 
+				password: myUser.password
+			);
+
+      myUser = myUser.copyWith(
+        userId: user.user!.uid,
+      );
+
+      return myUser;
+
+    } catch (e) {
+      log(e.toString());
+			rethrow;
+    }
   }
 
   Future<UserModel> register(UserModel myUser) async {

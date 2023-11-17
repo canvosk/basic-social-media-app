@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginPageTextWidgets extends StatefulWidget {
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
   const LoginPageTextWidgets({
     super.key,
+    required this.emailController,
+    required this.passwordController,
   });
 
   @override
@@ -17,8 +21,6 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
   
   bool isObscured = true;
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
 
   setVisible() {
     setState(() {
@@ -27,7 +29,7 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
   }
 
   clearEmail() {
-    emailController.clear();
+    widget.emailController.clear();
   }
 
   @override
@@ -35,8 +37,8 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
     return Column(
       children: [
         MyTextField(
-          validator: (string) => emailValidator(emailController.text),
-          controller: emailController,
+          validator: (string) => emailValidator(widget.emailController.text),
+          controller: widget.emailController,
           hintText: "E-mail",
           obscureText: false,
           keyboardType: TextInputType.emailAddress,
@@ -59,8 +61,8 @@ class _LoginPageTextWidgetsState extends State<LoginPageTextWidgets> {
           height: 16.h,
         ),
         MyTextField(
-          validator: (string) => passwordValidator(passwordController.text),
-          controller: passwordController,
+          validator: (string) => passwordValidator(widget.passwordController.text),
+          controller: widget.passwordController,
           hintText: "Password",
           obscureText: isObscured,
           keyboardType: TextInputType.emailAddress,

@@ -6,3 +6,9 @@ sealed class LoginEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class Login extends LoginEvent{
+  final UserEntitiy user;
+
+  const Login(this.user);
+}
