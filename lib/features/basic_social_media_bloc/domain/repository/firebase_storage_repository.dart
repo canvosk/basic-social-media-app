@@ -1,4 +1,4 @@
-abstract class StorageRepository{
+abstract class FirebaseStorageRepository{
 
   Future<String> getUnknownImageUrl();
 

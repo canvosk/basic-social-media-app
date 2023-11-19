@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/authentication_service.dart';
-import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/storage_service.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/firebase_storage_service.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/models/user_model.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/authentication_repository.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class AuthenticationRepositoryImp implements AuthenticationRepository {
   final AuthenticationService _authenticationService;
-  final StorageService _storageService;
+  final FirebaseStorageService _storageService;
 
   const AuthenticationRepositoryImp(
       this._authenticationService, this._storageService);

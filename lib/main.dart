@@ -1,7 +1,7 @@
 import 'package:basic_social_media_app/config/routes/routes.dart';
 import 'package:basic_social_media_app/config/theme/app_theme.dart';
-import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/login_bloc/login_bloc.dart';
-import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/register_bloc/register_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/local/local_storage_services.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/local_storage_bloc/local_storage_bloc.dart';
 import 'package:basic_social_media_app/firebase_options.dart';
 import 'package:basic_social_media_app/injection_container.dart';
 import 'package:basic_social_media_app/simple_bloc_observer.dart';
@@ -16,6 +16,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await LocalStorageService().init();
 
   Bloc.observer = SimpleBlocObserver();
 
@@ -35,11 +37,8 @@ class MainApp extends StatelessWidget {
         builder: (_, context) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider<RegisterBloc>(
-                create: (context) => RegisterBloc(sl()),
-              ),
-              BlocProvider<LoginBloc>(
-                create: (context) => LoginBloc(sl()),
+              BlocProvider<LocalStorageBloc>(
+                create: (context) => LocalStorageBloc(sl()),
               ),
             ],
             child: MaterialApp.router(
