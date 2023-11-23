@@ -21,6 +21,12 @@ class ManagementPage extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           child: BlocBuilder<ManagementPageBloc, ManagementPageState>(
+            key: UniqueKey(),
+            buildWhen: (previousState, currentState) {
+              debugPrint("Previous: $previousState");
+              debugPrint("Current: $currentState");
+              return currentState is CurrentPageChanged;
+            },
             builder: (context, state) {
               debugPrint(state.toString());
               if (state is CurrentPageChanged) {

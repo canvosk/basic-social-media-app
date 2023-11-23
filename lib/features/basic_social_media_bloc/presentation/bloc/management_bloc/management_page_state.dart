@@ -14,6 +14,10 @@ final class CurrentPageChanged extends ManagementPageState {
   final Widget content;
 
   const CurrentPageChanged(this.index, this.content);
+
+  @override
+  List<Object> get props => [index, content];
 }
 
 final class FailedChanging extends ManagementPageState {}
+ 
