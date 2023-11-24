@@ -1,4 +1,5 @@
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/management_bloc/management_page_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/profile_page/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,16 +16,20 @@ class MyBottomNavigationBar extends StatelessWidget {
           return BottomNavigationBar(
             currentIndex: state.index,
             onTap: (i) {
+              Widget content = i == 0
+                  ? Container(
+                      color: Colors.blue,
+                    )
+                  : i == 1
+                      ? Container(
+                          color: Colors.red,
+                        )
+                      : const ProfilePage();
+
               context.read<ManagementPageBloc>().add(
                     ChangeSelectedPage(
                       i,
-                      Container(
-                        color: i == 0
-                            ? Colors.blue
-                            : i == 1
-                                ? Colors.red
-                                : Colors.black,
-                      ),
+                      content,
                     ),
                   );
             },

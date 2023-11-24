@@ -8,6 +8,12 @@ TextStyle headingText(Color color) => TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+TextStyle nameText(Color color) => TextStyle(
+  fontSize: 22.sp,
+  color: color,
+  fontWeight: FontWeight.bold,
+);
+
 TextStyle bodyXLargeText(Color color) => TextStyle(
   fontSize: 18.sp,
   color: color,
