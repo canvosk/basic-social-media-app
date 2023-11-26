@@ -2,6 +2,7 @@ import 'package:basic_social_media_app/config/routes/routes.dart';
 import 'package:basic_social_media_app/config/theme/app_theme.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/local/local_storage_services.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/local_storage_bloc/local_storage_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/profile_page_bloc/profile_page_bloc.dart';
 import 'package:basic_social_media_app/firebase_options.dart';
 import 'package:basic_social_media_app/injection_container.dart';
 import 'package:basic_social_media_app/simple_bloc_observer.dart';
@@ -39,6 +40,9 @@ class MainApp extends StatelessWidget {
             providers: [
               BlocProvider<LocalStorageBloc>(
                 create: (context) => LocalStorageBloc(sl()),
+              ),
+              BlocProvider<ProfilePageBloc>(
+                create: (context) => ProfilePageBloc(sl()),
               ),
             ],
             child: MaterialApp.router(
