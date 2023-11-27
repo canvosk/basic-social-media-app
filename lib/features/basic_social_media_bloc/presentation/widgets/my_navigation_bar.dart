@@ -12,60 +12,58 @@ class MyBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LocalStorageBloc, LocalStorageState>(
-      builder: (context, localState) {
-        return BlocBuilder<ManagementPageBloc, ManagementPageState>(
-          builder: (localContext, state) {
-            if (state is CurrentPageChanged) {
-              return BottomNavigationBar(
-                currentIndex: state.index,
-                onTap: (i) {
-                  Widget content = i == 0
+    return BlocBuilder<ManagementPageBloc, ManagementPageState>(
+      builder: (localContext, state) {
+        if (state is CurrentPageChanged) {
+          return BottomNavigationBar(
+            currentIndex: state.index,
+            onTap: (i) {
+              Widget content = i == 0
+                  ? Container(
+                      color: Colors.blue,
+                    )
+                  : i == 1
                       ? Container(
-                          color: Colors.blue,
+                          color: Colors.red,
                         )
-                      : i == 1
-                          ? Container(
-                              color: Colors.red,
-                            )
-                          : const ProfilePage();
+                      : const ProfilePage();
 
-                  context.read<ManagementPageBloc>().add(
-                        ChangeSelectedPage(
-                          i,
-                          content,
-                        ),
-                      );
+              context.read<ManagementPageBloc>().add(
+                    ChangeSelectedPage(
+                      i,
+                      content,
+                    ),
+                  );
 
-                  if (localState is UserExist && i == 2) {
-                    BlocProvider.of<ProfilePageBloc>(context)
-                        .add(GetUserInformation(localState.userId));
-                  }
-                },
-                selectedItemColor: Colors.red,
-                items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home), label: 'Home'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.search), label: 'Search'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.person), label: 'Profile'),
-                ],
-              );
-            } else {
-              return BottomNavigationBar(
-                items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home), label: 'Home'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.search), label: 'Search'),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.person), label: 'Profile'),
-                ],
-              );
-            }
-          },
-        );
+              final localStorageState = context.read<LocalStorageBloc>().state;
+
+              debugPrint(localStorageState.toString());
+
+              if (localStorageState is UserExist && i == 2) {
+                BlocProvider.of<ProfilePageBloc>(context)
+                    .add(GetUserInformation(localStorageState.userId));
+              }
+            },
+            selectedItemColor: Colors.red,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.search), label: 'Search'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: 'Profile'),
+            ],
+          );
+        } else {
+          return BottomNavigationBar(
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.search), label: 'Search'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: 'Profile'),
+            ],
+          );
+        }
       },
     );
   }

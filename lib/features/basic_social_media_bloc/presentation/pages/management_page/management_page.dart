@@ -21,7 +21,6 @@ class ManagementPage extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           child: BlocBuilder<ManagementPageBloc, ManagementPageState>(
-            
             builder: (context, state) {
               debugPrint(state.toString());
               if (state is CurrentPageChanged) {
@@ -32,7 +31,7 @@ class ManagementPage extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: Padding(
                         padding: EdgeInsets.only(right: 8.w),
-                        child: 
+                        child:
                             BlocListener<LocalStorageBloc, LocalStorageState>(
                           listener: (context, state) {
                             if (state is NoUser) {
