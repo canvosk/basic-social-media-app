@@ -38,7 +38,9 @@ class RegisterPage extends StatelessWidget {
               );
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Kayıt Olundu!')),
-              );
+              ); 
+
+              
 
               BlocProvider.of<LocalStorageBloc>(context).add(SetString('userId', state.user.userId));
 

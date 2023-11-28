@@ -17,7 +17,7 @@ class UserModel extends UserEntitiy {
     profileImageUrl: '',
 	);
 
-  factory UserModel.fromJson(Map<String, dynamic> map) {
+  factory UserModel.fromJson(Map<dynamic, dynamic> map) {
     return UserModel(
       userId: map['userId'] ?? "",
       name: map['name'] ?? "",

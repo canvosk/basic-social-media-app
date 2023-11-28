@@ -35,6 +35,7 @@ class MyBottomNavigationBar extends StatelessWidget {
                     ),
                   );
 
+
               final localStorageState = context.read<LocalStorageBloc>().state;
 
               debugPrint(localStorageState.toString());

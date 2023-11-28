@@ -7,8 +7,14 @@ class UserService {
       FirebaseFirestore.instance.collection('users');
 
   Future<UserModel> getUserInformation({required String userId}) async {
-    var x = _userCollection.doc(userId).get();
-    debugPrint(x.toString());
+    DocumentSnapshot doc = await _userCollection.doc(userId).get();
+    if (doc.exists) {
+      Object? userMap = doc.data();
+      UserModel currentUser = UserModel.fromJson(userMap as Map);
+      return currentUser;
+    }
+
+    debugPrint(doc.toString());
     UserModel currentUser = UserModel.empty;
     return currentUser;
   }

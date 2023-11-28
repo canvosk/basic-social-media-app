@@ -8,7 +8,7 @@ class UserRepositoryImp implements UserRepository {
   const UserRepositoryImp(this._userService);
 
   @override
-  Future<UserModel> getUserInformation({required String userId}) {
-    return _userService.getUserInformation(userId: userId);
+  Future<UserModel> getUserInformation({required String userId}) async{
+    return await _userService.getUserInformation(userId: userId);
   }
 }

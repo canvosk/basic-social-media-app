@@ -8,7 +8,7 @@ class UserUseCase implements UseCase<UserEntitiy, String> {
   const UserUseCase(this._userRepository);
 
   @override
-  Future<UserEntitiy> call({required String params}) {
-    return _userRepository.getUserInformation(userId: params);
+  Future<UserEntitiy> call({required String params}) async {
+    return await _userRepository.getUserInformation(userId: params);
   }
 }
