@@ -1,5 +1,6 @@
 import 'package:basic_social_media_app/config/theme/colors.dart';
 import 'package:basic_social_media_app/config/theme/text_styles.dart';
+import 'package:basic_social_media_app/core/helpers/show_modals.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/profile_page_bloc/profile_page_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -34,21 +35,49 @@ class ProfilePage extends StatelessWidget {
                       // CircleAvatar(
                       //   radius: 85.w,
                       // ),
-                      CachedNetworkImage(
-                        imageUrl: state.user.profileImageUrl,
-                        imageBuilder: (context, imageProvider) => Container(
-                          width: 180.w,
-                          height: 180.w,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.cover),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl: state.user.profileImageUrl,
+                            imageBuilder: (context, imageProvider) => Container(
+                              width: 180.w,
+                              height: 180.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              ),
+                            ),
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ),
-                        ),
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                          Positioned.fill(
+                            bottom: -10.w,
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: GestureDetector(
+                                onTap: profilePhotoBottomSheet(context),
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    color: golbat140,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(4.w),
+                                    child: Icon(
+                                      Icons.add,
+                                      color: bgColor,
+                                      size: 24.w,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 8.h,
