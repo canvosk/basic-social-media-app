@@ -25,3 +25,11 @@ class ProfilePageDataFailed extends ProfilePageState {
 
   const ProfilePageDataFailed(this.exception);
 }
+
+class ProfilePhotoUpdating extends ProfilePageState {}
+
+class ProfilePhotoUpdateFailed extends ProfilePageState {
+  final String exception;
+
+  const ProfilePhotoUpdateFailed(this.exception);
+}

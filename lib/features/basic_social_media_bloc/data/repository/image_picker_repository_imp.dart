@@ -1,16 +1,14 @@
+import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/local/image_picker_services.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/image_picker_repository.dart';
-import 'package:cross_file/src/types/interface.dart';
+import 'package:image_picker/image_picker.dart';
 
-class ImagePickerRepositoryImp implements ImagePickerRepository{
-  @override
-  Future<XFile?> takeImageFromCamera() {
-    // TODO: implement takeImageFromCamera
-    throw UnimplementedError();
-  }
+class ImagePickerRepositoryImp implements ImagePickerRepository {
+  final ImagePickerServices _imagePickerServices;
+
+  const ImagePickerRepositoryImp(this._imagePickerServices);
 
   @override
-  Future<XFile?> takeImageFromGallery() {
-    // TODO: implement takeImageFromGallery
-    throw UnimplementedError();
+  Future<XFile?> takeImage({required ImageSource source}) async {
+    return await _imagePickerServices.takeImage(source: source);
   }
 }

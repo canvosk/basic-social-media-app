@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/firebase_storage_service.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/firebase_storage_repository.dart';
 
@@ -8,6 +10,11 @@ class FirebaseStorageRepositoryImp implements FirebaseStorageRepository {
 
   @override
   Future<String> getUnknownImageUrl() {
-   return _firebaseStorageService.getUnknownImageUrl();
+    return _firebaseStorageService.getUnknownImageUrl();
+  }
+
+  @override
+  Future<String> uploadImageToFirebase(File file) async {
+    return await _firebaseStorageService.uploadImageToFirebase(file) ?? "";
   }
 }

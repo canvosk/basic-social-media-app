@@ -42,7 +42,7 @@ class MainApp extends StatelessWidget {
                 create: (context) => LocalStorageBloc(sl()),
               ),
               BlocProvider<ProfilePageBloc>(
-                create: (context) => ProfilePageBloc(sl()),
+                create: (context) => ProfilePageBloc(sl(), sl()),
               ),
             ],
             child: MaterialApp.router(
