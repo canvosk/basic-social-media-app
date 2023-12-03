@@ -19,4 +19,10 @@ class UserUseCase implements UseCase<UserEntitiy, String> {
   Future<String> uploadImage({required File file}) async {
     return await _firebaseStorageRepository.uploadImageToFirebase(file);
   }
+
+  Future<bool> updateUserProfileImageInfo(
+      {required String userId, required String imageUrl}) async {
+    return await _userRepository.updateUserProfileImage(
+        userId: userId, imageUrl: imageUrl);
+  }
 }

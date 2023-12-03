@@ -14,69 +14,76 @@ profilePhotoBottomSheet(BuildContext context) {
   return showModalBottomSheet(
     context: context,
     builder: (builder) {
-      return SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: 175.h,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {
-                var state = context.read<ProfilePageBloc>().state;
-                if (state is ProfilePageDataSuccess) {
-                  context.read<ProfilePageBloc>().add(UpdateUserPhoto(
-                      source: ImageSource.camera, user: state.user));
-                }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.camera_alt,
-                    color: golbat140,
-                  ),
-                  Text(
-                    "Kamera ile",
-                    style: bodyLargeText(golbat140),
-                  ),
-                ],
+      return BlocListener<ProfilePageBloc, ProfilePageState>(
+        listener: (context, state) {
+          if (state is ProfilePhotoUpdating) {
+            Navigator.pop(context);
+          }
+        },
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 175.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  var state = context.read<ProfilePageBloc>().state;
+                  if (state is ProfilePageDataSuccess) {
+                    context.read<ProfilePageBloc>().add(UpdateUserPhoto(
+                        source: ImageSource.camera, user: state.user));
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.camera_alt,
+                      color: golbat140,
+                    ),
+                    Text(
+                      "Kamera ile",
+                      style: bodyLargeText(golbat140),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            Divider(
-              height: 2.h,
-              indent: 100,
-              endIndent: 100,
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            GestureDetector(
-              onTap: () {
-                var state = context.read<ProfilePageBloc>().state;
-                if (state is ProfilePageDataSuccess) {
-                  context.read<ProfilePageBloc>().add(UpdateUserPhoto(
-                      source: ImageSource.gallery, user: state.user));
-                }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.photo,
-                    color: golbat140,
-                  ),
-                  Text(
-                    "Galeri ile",
-                    style: bodyLargeText(golbat140),
-                  ),
-                ],
+              SizedBox(
+                height: 8.h,
               ),
-            ),
-          ],
+              Divider(
+                height: 2.h,
+                indent: 100,
+                endIndent: 100,
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              GestureDetector(
+                onTap: () {
+                  var state = context.read<ProfilePageBloc>().state;
+                  if (state is ProfilePageDataSuccess) {
+                    context.read<ProfilePageBloc>().add(UpdateUserPhoto(
+                        source: ImageSource.gallery, user: state.user));
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.photo,
+                      color: golbat140,
+                    ),
+                    Text(
+                      "Galeri ile",
+                      style: bodyLargeText(golbat140),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
     },

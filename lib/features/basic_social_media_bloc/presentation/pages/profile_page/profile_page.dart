@@ -26,7 +26,8 @@ class ProfilePage extends StatelessWidget {
               return const Center(
                 child: Icon(Icons.dangerous),
               );
-            } else if (state is ProfilePageDataSuccess) {
+            } else if (state is ProfilePageDataSuccess ||
+                state is ProfilePhotoUpdating) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -38,22 +39,41 @@ class ProfilePage extends StatelessWidget {
                       Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          CachedNetworkImage(
-                            imageUrl: state.user.profileImageUrl,
-                            imageBuilder: (context, imageProvider) => Container(
-                              width: 180.w,
-                              height: 180.w,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: imageProvider, fit: BoxFit.cover),
-                              ),
-                            ),
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
+                          state is ProfilePageDataSuccess
+                              ? CachedNetworkImage(
+                                  imageUrl: state.user.profileImageUrl,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    width: 180.w,
+                                    height: 180.w,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) => Container(
+                                      width: 180.w,
+                                      height: 180.w,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Center(
+                                          child: CircularProgressIndicator())),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                )
+                              : Container(
+                                  width: 180.w,
+                                  height: 180.w,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
                           Positioned.fill(
                             bottom: -10.w,
                             child: Align(
@@ -85,11 +105,19 @@ class ProfilePage extends StatelessWidget {
                         height: 8.h,
                       ),
                       Text(
-                        state.user.name,
+                        state is ProfilePageDataSuccess
+                            ? state.user.name
+                            : state is ProfilePhotoUpdating
+                                ? state.user.name
+                                : "",
                         style: nameText(golbat140),
                       ),
                       Text(
-                        state.user.email,
+                        state is ProfilePageDataSuccess
+                            ? state.user.email
+                            : state is ProfilePhotoUpdating
+                                ? state.user.email
+                                : "",
                         style: bodyMediumText(golbat140.withOpacity(0.5)),
                       ),
                     ],

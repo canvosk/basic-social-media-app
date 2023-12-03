@@ -28,7 +28,7 @@ class ProfilePageBloc extends Bloc<ProfilePageEvent, ProfilePageState> {
       }
     });
     on<UpdateUserPhoto>((event, emit) async {
-      emit(ProfilePhotoUpdating());
+      emit(ProfilePhotoUpdating(event.user));
       try {
         XFile? image = await _imagePickerUseCase.call(params: event.source);
         if (image == null) {
@@ -41,6 +41,10 @@ class ProfilePageBloc extends Bloc<ProfilePageEvent, ProfilePageState> {
           emit(ProfilePageDataSuccess(event.user));
           return;
         }
+
+        await _userUseCase.updateUserProfileImageInfo(
+            userId: event.user.userId, imageUrl: profileImage);
+
         UserEntitiy newUser =
             event.user.copyWith(profileImageUrl: profileImage);
         emit(ProfilePageDataSuccess(newUser));

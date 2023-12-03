@@ -26,7 +26,14 @@ class ProfilePageDataFailed extends ProfilePageState {
   const ProfilePageDataFailed(this.exception);
 }
 
-class ProfilePhotoUpdating extends ProfilePageState {}
+class ProfilePhotoUpdating extends ProfilePageState {
+  final UserEntitiy user;
+
+  const ProfilePhotoUpdating(this.user);
+
+  @override
+  List<Object> get props => [user];
+}
 
 class ProfilePhotoUpdateFailed extends ProfilePageState {
   final String exception;

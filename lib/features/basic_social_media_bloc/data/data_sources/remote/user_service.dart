@@ -18,4 +18,17 @@ class UserService {
     UserModel currentUser = UserModel.empty;
     return currentUser;
   }
+
+  Future<bool> updateUserProfileImage(
+      {required String userId, required String imageUrl}) async {
+    bool isDone = await _userCollection.doc(userId).update({
+      'profileImageUrl': imageUrl,
+    }).then((_) {
+      return true;
+    }).catchError((error) {
+      return false;
+    });
+    debugPrint(isDone.toString());
+    return isDone;
+  }
 }
