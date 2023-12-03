@@ -20,7 +20,7 @@ final GoRouter routes = GoRouter(
       builder: (context, state) => const BasePage(pageContent: RegisterPage()),
     ),
     GoRoute(
-      path: '/home-page',
+      path: '/management-page',
       builder: (context, state) => const ManagementPage(),
     ),
   ],

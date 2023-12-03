@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
     return BlocListener<LocalStorageBloc, LocalStorageState>(
       listener: (context, state) {
         if (state is UserExist) {
-          context.go('/home-page');
+          context.go('/management-page');
         } else if (state is NoUser) {
           context.go('/login-page');
         }

@@ -1,6 +1,7 @@
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/local_storage_bloc/local_storage_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/management_bloc/management_page_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/profile_page_bloc/profile_page_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/home_page/home_page.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/profile_page/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,9 +20,7 @@ class MyBottomNavigationBar extends StatelessWidget {
             currentIndex: state.index,
             onTap: (i) {
               Widget content = i == 0
-                  ? Container(
-                      color: Colors.blue,
-                    )
+                  ? const HomePage()
                   : i == 1
                       ? Container(
                           color: Colors.red,
@@ -34,7 +33,6 @@ class MyBottomNavigationBar extends StatelessWidget {
                       content,
                     ),
                   );
-
 
               final localStorageState = context.read<LocalStorageBloc>().state;
 

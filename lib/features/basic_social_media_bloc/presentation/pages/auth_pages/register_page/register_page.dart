@@ -38,14 +38,13 @@ class RegisterPage extends StatelessWidget {
               );
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Kayıt Olundu!')),
-              ); 
+              );
 
-              
-
-              BlocProvider.of<LocalStorageBloc>(context).add(SetString('userId', state.user.userId));
+              BlocProvider.of<LocalStorageBloc>(context)
+                  .add(SetString('userId', state.user.userId));
 
               Future.delayed(const Duration(seconds: 1), () {
-                return context.go("/home-page");
+                return context.go("/management-page");
               });
             } else if (state is Registering) {
               buttonChild = const Center(

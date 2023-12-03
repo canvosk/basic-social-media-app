@@ -1,5 +1,6 @@
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/local_storage_bloc/local_storage_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/management_bloc/management_page_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/home_page/home_page.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/widgets/my_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,11 +14,12 @@ class ManagementPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ManagementPageBloc()
-        ..add(ChangeSelectedPage(
+        ..add(
+          const ChangeSelectedPage(
             0,
-            Container(
-              color: Colors.blue,
-            ))),
+            HomePage(),
+          ),
+        ),
       child: Scaffold(
         body: SafeArea(
           child: BlocBuilder<ManagementPageBloc, ManagementPageState>(
@@ -27,30 +29,32 @@ class ManagementPage extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 8.w),
-                        child:
-                            BlocListener<LocalStorageBloc, LocalStorageState>(
-                          listener: (context, state) {
-                            if (state is NoUser) {
-                              context.go('/login-page');
-                            }
-                          },
-                          child: IconButton(
-                            onPressed: () {
-                              context
-                                  .read<LocalStorageBloc>()
-                                  .add(const RemoveValue(
-                                    'userId',
-                                  ));
-                            },
-                            icon: const Icon(Icons.logout_rounded),
-                          ),
-                        ),
-                      ),
-                    ),
+                    state.index == 2
+                        ? Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 8.w),
+                              child: BlocListener<LocalStorageBloc,
+                                  LocalStorageState>(
+                                listener: (context, state) {
+                                  if (state is NoUser) {
+                                    context.go('/login-page');
+                                  }
+                                },
+                                child: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<LocalStorageBloc>()
+                                        .add(const RemoveValue(
+                                          'userId',
+                                        ));
+                                  },
+                                  icon: const Icon(Icons.logout_rounded),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container(),
                     Expanded(child: state.content),
                   ],
                 );
