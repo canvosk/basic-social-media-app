@@ -22,6 +22,7 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/presenta
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/profile_page_bloc/profile_page_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/register_bloc/register_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/search_page_bloc/search_page_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -56,4 +57,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<LoginBloc>(() => LoginBloc(sl()));
   sl.registerFactory<LocalStorageBloc>(() => LocalStorageBloc(sl()));
   sl.registerFactory<ProfilePageBloc>(() => ProfilePageBloc(sl(), sl()));
+  sl.registerFactory<SearchPageBloc>(() => SearchPageBloc(sl()));
 }

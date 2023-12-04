@@ -31,4 +31,21 @@ class UserService {
     debugPrint(isDone.toString());
     return isDone;
   }
+
+  Future<List<UserModel>> searchUser({required String searchName}) async {
+    var searchedUsers =
+        await _userCollection.where('name', isEqualTo: searchName).get();
+    debugPrint(searchedUsers.toString());
+
+    List<UserModel> users = [];
+
+    for (var userData in searchedUsers.docs) {
+      UserModel user = UserModel.fromJson(userData.data() as Map);
+      users.add(user);
+    }
+
+    debugPrint(users.toString());
+
+    return users;
+  }
 }

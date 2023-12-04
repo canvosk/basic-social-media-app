@@ -5,4 +5,6 @@ abstract class UserRepository {
 
   Future<bool> updateUserProfileImage(
       {required String userId, required String imageUrl});
+
+  Future<List<UserEntitiy>> searchUser({required String searchName});
 }

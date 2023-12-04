@@ -18,4 +18,9 @@ class UserRepositoryImp implements UserRepository {
     return await _userService.updateUserProfileImage(
         userId: userId, imageUrl: imageUrl);
   }
+
+  @override
+  Future<List<UserModel>> searchUser({required String searchName}) async {
+    return await _userService.searchUser(searchName: searchName);
+  }
 }

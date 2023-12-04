@@ -25,4 +25,8 @@ class UserUseCase implements UseCase<UserEntitiy, String> {
     return await _userRepository.updateUserProfileImage(
         userId: userId, imageUrl: imageUrl);
   }
+
+  Future<List<UserEntitiy>> searchUser({required String searchName}) async {
+    return await _userRepository.searchUser(searchName: searchName);
+  }
 }
