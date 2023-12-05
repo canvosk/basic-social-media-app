@@ -1,3 +1,4 @@
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/user_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -11,14 +12,26 @@ class SearchPageBloc extends Bloc<SearchPageEvent, SearchPageState> {
 
   SearchPageBloc(this._userUseCase) : super(SearchPageClear()) {
     on<SearchUser>((event, emit) async {
+      if (event.searchName == "" || event.searchName.isEmpty) {
+        emit(SearchPageClear());
+        return;
+      }
       emit(SearchingUser());
       try {
-        await _userUseCase.searchUser(searchName: event.searchName);
-        emit(SearchSuccess());
+        List<UserEntitiy> searchedUsers =
+            await _userUseCase.searchUser(searchName: event.searchName);
+        if (searchedUsers.isEmpty) {
+          emit(SearchEmpty());
+          return;
+        }
+        emit(SearchSuccess(searchedUsers));
       } catch (e) {
         debugPrint(e.toString());
         emit(SearchFailed());
       }
+    });
+    on<SearchPageClearEvent>((event, emit) async {
+      emit(SearchPageClear());
     });
   }
 }

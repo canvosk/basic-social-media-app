@@ -32,8 +32,8 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<AuthenticationService>(AuthenticationService());
   sl.registerSingleton<FirebaseStorageService>(FirebaseStorageService());
-  sl.registerSingleton<UserService>(UserService());
   sl.registerSingleton<LocalStorageService>(LocalStorageService());
+  sl.registerSingleton<UserService>(UserService(sl()));
   sl.registerSingleton<ImagePickerServices>(ImagePickerServices());
   LocalStorageService().init();
 

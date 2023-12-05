@@ -33,6 +33,11 @@ class _SearchTextFieldState extends State<SearchTextField> {
   }
 
   void _onItemChanged(String value) {
+    if (value == "" || value.isEmpty) {
+      debugPrint("Temiz");
+      context.read<SearchPageBloc>().add(SearchUser(value));
+      return;
+    }
     cancelableOperation.cancel();
     _start();
     cancelableOperation.value.whenComplete(() {
@@ -56,7 +61,10 @@ class _SearchTextFieldState extends State<SearchTextField> {
         // Add a clear button to the search bar
         suffixIcon: IconButton(
           icon: const Icon(Icons.clear, color: golbat140),
-          onPressed: () => _searchController.clear(),
+          onPressed: () {
+            _searchController.clear();
+            context.read<SearchPageBloc>().add(SearchPageClearEvent());
+          },
         ),
         // Add a search icon or button to the search bar
         prefixIcon: IconButton(

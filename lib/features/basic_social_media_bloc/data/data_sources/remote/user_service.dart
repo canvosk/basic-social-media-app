@@ -1,8 +1,13 @@
+import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/local/local_storage_services.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserService {
+  final LocalStorageService _localStorageService;
+
+  UserService(this._localStorageService);
+
   final CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
 
@@ -33,15 +38,19 @@ class UserService {
   }
 
   Future<List<UserModel>> searchUser({required String searchName}) async {
-    var searchedUsers =
-        await _userCollection.where('name', isEqualTo: searchName).get();
+    var searchedUsers = await _userCollection
+        .where('name', isGreaterThanOrEqualTo: searchName)
+        .get();
     debugPrint(searchedUsers.toString());
 
     List<UserModel> users = [];
 
     for (var userData in searchedUsers.docs) {
+      String myUserId = await _localStorageService.getString(key: "userId");
       UserModel user = UserModel.fromJson(userData.data() as Map);
-      users.add(user);
+      if (user.userId != myUserId) {
+        users.add(user);
+      }
     }
 
     debugPrint(users.toString());

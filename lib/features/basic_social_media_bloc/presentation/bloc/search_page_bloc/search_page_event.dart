@@ -12,3 +12,5 @@ class SearchUser extends SearchPageEvent {
 
   const SearchUser(this.searchName);
 }
+
+class SearchPageClearEvent extends SearchPageEvent {}
