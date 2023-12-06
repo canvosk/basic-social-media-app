@@ -8,7 +8,7 @@ sealed class LoginEvent extends Equatable {
 }
 
 class Login extends LoginEvent{
-  final UserEntitiy user;
+  final UserEntity user;
 
   const Login(this.user);
 }

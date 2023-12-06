@@ -1,6 +1,6 @@
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entity.dart';
 
-class UserModel extends UserEntitiy {
+class UserModel extends UserEntity {
   const UserModel({
     required super.userId,
     required super.name,
@@ -10,12 +10,12 @@ class UserModel extends UserEntitiy {
   });
 
   static const empty = UserModel(
-		userId: '', 
+    userId: '',
     name: '',
-		email: '', 
+    email: '',
     password: '',
     profileImageUrl: '',
-	);
+  );
 
   factory UserModel.fromJson(Map<dynamic, dynamic> map) {
     return UserModel(
@@ -27,7 +27,7 @@ class UserModel extends UserEntitiy {
     );
   }
 
-  factory UserModel.fromEntity(UserEntitiy entity) {
+  factory UserModel.fromEntity(UserEntity entity) {
     return UserModel(
       userId: entity.userId,
       name: entity.name,
@@ -54,8 +54,8 @@ class UserModel extends UserEntitiy {
     );
   }
 
-  UserEntitiy toEntity() {
-    return UserEntitiy(
+  UserEntity toEntity() {
+    return UserEntity(
       userId: userId,
       name: name,
       email: email,
@@ -64,7 +64,6 @@ class UserModel extends UserEntitiy {
     );
   }
 
-  	@override
-	List<Object?> get props => [userId, name, email, password, profileImageUrl];
-  
+  @override
+  List<Object?> get props => [userId, name, email, password, profileImageUrl];
 }

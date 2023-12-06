@@ -57,4 +57,29 @@ class UserService {
 
     return users;
   }
+
+  Future<bool> followUser({required UserModel userToFollow}) async {
+    try {
+      String myUserId = await _localStorageService.getString(key: "userId");
+
+      await _userCollection
+          .doc(myUserId)
+          .collection("following")
+          .doc(userToFollow.userId)
+          .set(userToFollow.toEntity().toMap());
+
+      UserModel myUser = await getUserInformation(userId: myUserId);
+
+      await _userCollection
+          .doc(userToFollow.userId)
+          .collection("followers")
+          .doc(myUserId)
+          .set(myUser.toEntity().toMap());
+
+      return true;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
 }

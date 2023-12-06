@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-class UserEntitiy extends Equatable {
+class UserEntity extends Equatable {
   final String userId;
   final String name;
   final String email;
   final String password;
   final String profileImageUrl;
 
-  const UserEntitiy({
+  const UserEntity({
     required this.userId,
     required this.name,
     required this.email,
@@ -16,7 +16,7 @@ class UserEntitiy extends Equatable {
     required this.profileImageUrl,
   });
 
-  static const empty = UserEntitiy(
+  static const empty = UserEntity(
     userId: '',
     name: '',
     email: '',
@@ -24,14 +24,14 @@ class UserEntitiy extends Equatable {
     profileImageUrl: '',
   );
 
-  UserEntitiy copyWith({
+  UserEntity copyWith({
     String? userId,
     String? name,
     String? email,
     String? password,
     String? profileImageUrl,
   }) {
-    return UserEntitiy(
+    return UserEntity(
       userId: userId ?? this.userId,
       name: name ?? this.name,
       email: email ?? this.email,
@@ -50,8 +50,8 @@ class UserEntitiy extends Equatable {
     };
   }
 
-  static UserEntitiy fromMap(Map<String, dynamic> map) {
-    return UserEntitiy(
+  static UserEntity fromMap(Map<String, dynamic> map) {
+    return UserEntity(
       userId: map['userId'],
       name: map['name'],
       email: map['email'],

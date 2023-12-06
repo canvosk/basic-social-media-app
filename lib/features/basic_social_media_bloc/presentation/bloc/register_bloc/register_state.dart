@@ -12,7 +12,7 @@ final class RegisterInitial extends RegisterState {}
 class Registering extends RegisterState {}
 
 class RegisterSuccess extends RegisterState {
-  final UserEntitiy user;
+  final UserEntity user;
 
   const RegisterSuccess(this.user);
 }

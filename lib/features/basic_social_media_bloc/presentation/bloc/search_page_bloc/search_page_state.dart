@@ -12,7 +12,7 @@ final class SearchPageClear extends SearchPageState {}
 class SearchingUser extends SearchPageState {}
 
 class SearchSuccess extends SearchPageState {
-  final List<UserEntitiy> searchedUsers;
+  final List<UserEntity> searchedUsers;
 
   const SearchSuccess(this.searchedUsers);
 

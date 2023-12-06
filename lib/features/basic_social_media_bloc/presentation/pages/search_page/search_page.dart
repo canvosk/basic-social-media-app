@@ -1,5 +1,6 @@
 import 'package:basic_social_media_app/config/theme/colors.dart';
 import 'package:basic_social_media_app/config/theme/text_styles.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/follow_user_bloc/follow_user_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/search_page_bloc/search_page_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/search_page/widgets/search_textfield.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -99,12 +100,78 @@ class SearchPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              TextButton(
-                                  onPressed: () {
-                                    debugPrint(
-                                        state.searchedUsers[index].userId);
-                                  },
-                                  child: const Text("Follow")),
+                              BlocBuilder<FollowUserBloc, FollowUserState>(
+                                builder: (context, followState) {
+                                  if (followState is FollowUserInitial) {
+                                    return TextButton(
+                                      onPressed: () {
+                                        debugPrint(
+                                            state.searchedUsers[index].userId);
+                                        context.read<FollowUserBloc>().add(
+                                              FollowUser(
+                                                state.searchedUsers[index],
+                                              ),
+                                            );
+                                      },
+                                      child: const Text("Follow"),
+                                    );
+                                  } else if (followState is FollowingUser) {
+                                    if (followState.userId !=
+                                        state.searchedUsers[index].userId) {
+                                      return TextButton(
+                                        onPressed: () {
+                                          debugPrint(state
+                                              .searchedUsers[index].userId);
+                                          context.read<FollowUserBloc>().add(
+                                                FollowUser(
+                                                  state.searchedUsers[index],
+                                                ),
+                                              );
+                                        },
+                                        child: const Text("Follow"),
+                                      );
+                                    }
+                                    return const CircularProgressIndicator();
+                                  } else if (followState is FollowedUser) {
+                                    if (followState.userId !=
+                                        state.searchedUsers[index].userId) {
+                                      return TextButton(
+                                        onPressed: () {
+                                          debugPrint(state
+                                              .searchedUsers[index].userId);
+                                          context.read<FollowUserBloc>().add(
+                                                FollowUser(
+                                                  state.searchedUsers[index],
+                                                ),
+                                              );
+                                        },
+                                        child: const Text("Follow"),
+                                      );
+                                    }
+
+                                    return const Text("Followed");
+                                  } else if (followState is FollowFailed) {
+                                    if (followState.userId !=
+                                        state.searchedUsers[index].userId) {
+                                      return TextButton(
+                                        onPressed: () {
+                                          debugPrint(state
+                                              .searchedUsers[index].userId);
+                                          context.read<FollowUserBloc>().add(
+                                                FollowUser(
+                                                  state.searchedUsers[index],
+                                                ),
+                                              );
+                                        },
+                                        child: const Text("Follow"),
+                                      );
+                                    }
+
+                                    return const Text("Failed");
+                                  }
+                                  return Container();
+                                },
+                              ),
                             ],
                           );
                         },

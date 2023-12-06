@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/image_picker_usecase.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/user_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -20,7 +20,7 @@ class ProfilePageBloc extends Bloc<ProfilePageEvent, ProfilePageState> {
     on<GetUserInformation>((event, emit) async {
       emit(ProfilePageGettingData());
       try {
-        UserEntitiy currentUser = await _userUseCase.call(params: event.userId);
+        UserEntity currentUser = await _userUseCase.call(params: event.userId);
         emit(ProfilePageDataSuccess(currentUser));
       } catch (e) {
         debugPrint(e.toString());
@@ -45,7 +45,7 @@ class ProfilePageBloc extends Bloc<ProfilePageEvent, ProfilePageState> {
         await _userUseCase.updateUserProfileImageInfo(
             userId: event.user.userId, imageUrl: profileImage);
 
-        UserEntitiy newUser =
+        UserEntity newUser =
             event.user.copyWith(profileImageUrl: profileImage);
         emit(ProfilePageDataSuccess(newUser));
       } catch (e) {

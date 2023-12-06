@@ -1,10 +1,12 @@
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entity.dart';
 
 abstract class UserRepository {
-  Future<UserEntitiy> getUserInformation({required String userId});
+  Future<UserEntity> getUserInformation({required String userId});
 
   Future<bool> updateUserProfileImage(
       {required String userId, required String imageUrl});
 
-  Future<List<UserEntitiy>> searchUser({required String searchName});
+  Future<List<UserEntity>> searchUser({required String searchName});
+
+  Future<bool> followUser({required UserEntity userToFollow});
 }

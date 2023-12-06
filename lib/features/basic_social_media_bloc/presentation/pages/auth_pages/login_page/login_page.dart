@@ -1,6 +1,6 @@
 import 'package:basic_social_media_app/config/theme/colors.dart';
 import 'package:basic_social_media_app/config/theme/text_styles.dart';
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/local_storage_bloc/local_storage_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/auth_pages/login_page/widgets/text_widgets.dart';
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                                   MediaQuery.of(context).size.width, 50.h)),
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              UserEntitiy myUser = UserEntitiy.empty;
+                              UserEntity myUser = UserEntity.empty;
                               myUser = myUser.copyWith(
                                 email: emailController.text,
                                 password: passwordController.text,

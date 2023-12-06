@@ -1,5 +1,6 @@
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/user_service.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/models/user_model.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/user_repository.dart';
 
 class UserRepositoryImp implements UserRepository {
@@ -22,5 +23,11 @@ class UserRepositoryImp implements UserRepository {
   @override
   Future<List<UserModel>> searchUser({required String searchName}) async {
     return await _userService.searchUser(searchName: searchName);
+  }
+
+  @override
+  Future<bool> followUser({required UserEntity userToFollow}) async {
+    return await _userService.followUser(
+        userToFollow: UserModel.fromEntity(userToFollow));
   }
 }

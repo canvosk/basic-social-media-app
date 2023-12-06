@@ -1,4 +1,4 @@
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/login_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -13,7 +13,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<Login>((event, emit) async {
       emit(LoginLoading());
       try {
-        UserEntitiy user = await _loginUseCase.call(params: event.user);
+        UserEntity user = await _loginUseCase.call(params: event.user);
         emit(LoginSuccess(user));
       } catch (e) {
         emit(LoginFailed(e.toString()));

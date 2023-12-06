@@ -1,18 +1,18 @@
 import 'dart:io';
 
 import 'package:basic_social_media_app/core/usecase/usecase.dart';
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/firebase_storage_repository.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/user_repository.dart';
 
-class UserUseCase implements UseCase<UserEntitiy, String> {
+class UserUseCase implements UseCase<UserEntity, String> {
   final UserRepository _userRepository;
   final FirebaseStorageRepository _firebaseStorageRepository;
 
   const UserUseCase(this._userRepository, this._firebaseStorageRepository);
 
   @override
-  Future<UserEntitiy> call({required String params}) async {
+  Future<UserEntity> call({required String params}) async {
     return await _userRepository.getUserInformation(userId: params);
   }
 
@@ -26,7 +26,11 @@ class UserUseCase implements UseCase<UserEntitiy, String> {
         userId: userId, imageUrl: imageUrl);
   }
 
-  Future<List<UserEntitiy>> searchUser({required String searchName}) async {
+  Future<List<UserEntity>> searchUser({required String searchName}) async {
     return await _userRepository.searchUser(searchName: searchName);
+  }
+
+  Future<bool> followUser({required UserEntity userToFollow}) async {
+    return await _userRepository.followUser(userToFollow: userToFollow);
   }
 }

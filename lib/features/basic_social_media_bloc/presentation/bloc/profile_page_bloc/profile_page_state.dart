@@ -12,7 +12,7 @@ final class ProfilePageInitial extends ProfilePageState {}
 class ProfilePageGettingData extends ProfilePageState {}
 
 class ProfilePageDataSuccess extends ProfilePageState {
-  final UserEntitiy user;
+  final UserEntity user;
 
   const ProfilePageDataSuccess(this.user);
 
@@ -27,7 +27,7 @@ class ProfilePageDataFailed extends ProfilePageState {
 }
 
 class ProfilePhotoUpdating extends ProfilePageState {
-  final UserEntitiy user;
+  final UserEntity user;
 
   const ProfilePhotoUpdating(this.user);
 

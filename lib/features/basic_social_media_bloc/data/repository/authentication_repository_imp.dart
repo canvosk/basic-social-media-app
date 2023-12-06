@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/authentication_service.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/firebase_storage_service.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/models/user_model.dart';
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
       this._authenticationService, this._storageService);
 
   @override
-  Future<UserEntitiy> login({required UserEntitiy myUser}) async{
+  Future<UserEntity> login({required UserEntity myUser}) async {
     try {
       UserModel user = UserModel.fromEntity(myUser);
       user = await _authenticationService.login(myUser: user);
@@ -25,9 +25,9 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
       rethrow;
     }
   }
- 
+
   @override
-  Future<UserEntitiy> register(UserEntitiy myUser) async {
+  Future<UserEntity> register(UserEntity myUser) async {
     try {
       UserModel user = UserModel.fromEntity(myUser);
       user = await _authenticationService.register(user);

@@ -1,4 +1,4 @@
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entitiy.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/register_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -13,7 +13,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<Register>((event, emit) async {
       emit(Registering());
       try {
-        UserEntitiy user = await _registerUseCase.call(params: event.user);
+        UserEntity user = await _registerUseCase.call(params: event.user);
         emit(RegisterSuccess(user));
       } catch (e) {
         emit(RegisterFailed(e.toString())); 
