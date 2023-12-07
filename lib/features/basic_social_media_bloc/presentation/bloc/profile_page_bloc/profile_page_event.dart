@@ -15,7 +15,7 @@ class GetUserInformation extends ProfilePageEvent {
 
 class UpdateUserPhoto extends ProfilePageEvent {
   final ImageSource source;
-  final UserEntity user;
+  final UserManagementEntity user;
 
   const UpdateUserPhoto({required this.source, required this.user});
 }

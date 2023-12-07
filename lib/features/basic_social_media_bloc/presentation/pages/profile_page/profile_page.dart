@@ -41,7 +41,7 @@ class ProfilePage extends StatelessWidget {
                         children: [
                           state is ProfilePageDataSuccess
                               ? CachedNetworkImage(
-                                  imageUrl: state.user.profileImageUrl,
+                                  imageUrl: state.user.myUser.profileImageUrl,
                                   imageBuilder: (context, imageProvider) =>
                                       Container(
                                     width: 180.w,
@@ -106,19 +106,62 @@ class ProfilePage extends StatelessWidget {
                       ),
                       Text(
                         state is ProfilePageDataSuccess
-                            ? state.user.name
+                            ? state.user.myUser.name
                             : state is ProfilePhotoUpdating
-                                ? state.user.name
+                                ? state.user.myUser.name
                                 : "",
                         style: nameText(golbat140),
                       ),
                       Text(
                         state is ProfilePageDataSuccess
-                            ? state.user.email
+                            ? state.user.myUser.email
                             : state is ProfilePhotoUpdating
-                                ? state.user.email
+                                ? state.user.myUser.email
                                 : "",
                         style: bodyMediumText(golbat140.withOpacity(0.5)),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 24.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            "Followers",
+                            style: bodyXLargeText(golbat140),
+                          ),
+                          Text(
+                            state is ProfilePageDataSuccess
+                                ? state.user.followers.length.toString()
+                                : state is ProfilePhotoUpdating
+                                    ? state.user.followers.length.toString()
+                                    : "0",
+                            style: bodyLargeText(golbat140.withOpacity(0.5)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 24.w,
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            "Following",
+                            style: bodyXLargeText(golbat140),
+                          ),
+                          Text(
+                            state is ProfilePageDataSuccess
+                                ? state.user.following.length.toString()
+                                : state is ProfilePhotoUpdating
+                                    ? state.user.following.length.toString()
+                                    : "0",
+                            style: bodyLargeText(golbat140.withOpacity(0.5)),
+                          ),
+                        ],
                       ),
                     ],
                   ),

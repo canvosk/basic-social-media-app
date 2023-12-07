@@ -1,4 +1,5 @@
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/local/local_storage_services.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/data/models/user_management_model.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,17 +12,48 @@ class UserService {
   final CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
 
-  Future<UserModel> getUserInformation({required String userId}) async {
+  Future<UserManagementModel> getUserInformation(
+      {required String userId}) async {
     DocumentSnapshot doc = await _userCollection.doc(userId).get();
     if (doc.exists) {
       Object? userMap = doc.data();
+
+      UserManagementModel userManagement = UserManagementModel.empty;
+
       UserModel currentUser = UserModel.fromJson(userMap as Map);
-      return currentUser;
+
+      //Getting followers info
+      QuerySnapshot followers =
+          await _userCollection.doc(userId).collection("followers").get();
+
+      List<UserModel> followersUsers = [];
+
+      for (var user in followers.docs) {
+        followersUsers.add(UserModel.fromJson(user.data() as Map));
+      }
+
+      //Getting following info
+      QuerySnapshot following =
+          await _userCollection.doc(userId).collection("following").get();
+
+      List<UserModel> followingUsers = [];
+
+      for (var user in following.docs) {
+        followingUsers.add(UserModel.fromJson(user.data() as Map));
+      }
+
+      userManagement = UserManagementModel(
+        myUser: currentUser,
+        followers: followersUsers,
+        following: followingUsers,
+      );
+
+      return userManagement;
     }
 
     debugPrint(doc.toString());
-    UserModel currentUser = UserModel.empty;
-    return currentUser;
+    UserManagementModel userManagement = UserManagementModel.empty;
+    return userManagement;
   }
 
   Future<bool> updateUserProfileImage(
@@ -68,13 +100,14 @@ class UserService {
           .doc(userToFollow.userId)
           .set(userToFollow.toEntity().toMap());
 
-      UserModel myUser = await getUserInformation(userId: myUserId);
+      UserManagementModel myUserManagement =
+          await getUserInformation(userId: myUserId);
 
       await _userCollection
           .doc(userToFollow.userId)
           .collection("followers")
           .doc(myUserId)
-          .set(myUser.toEntity().toMap());
+          .set(myUserManagement.myUser.toMap());
 
       return true;
     } catch (e) {

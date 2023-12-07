@@ -14,5 +14,3 @@ class SearchUser extends SearchPageEvent {
 }
 
 class SearchPageClearEvent extends SearchPageEvent {}
-
-
