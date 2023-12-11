@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -147,21 +148,29 @@ class ProfilePage extends StatelessWidget {
                       SizedBox(
                         width: 24.w,
                       ),
-                      Column(
-                        children: [
-                          Text(
-                            "Following",
-                            style: bodyXLargeText(golbat140),
-                          ),
-                          Text(
-                            state is ProfilePageDataSuccess
-                                ? state.user.following.length.toString()
-                                : state is ProfilePhotoUpdating
-                                    ? state.user.following.length.toString()
-                                    : "0",
-                            style: bodyLargeText(golbat140.withOpacity(0.5)),
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          state is ProfilePageDataSuccess
+                              ? context.push('/following-detail-page',
+                                  extra: state.user)
+                              : null;
+                        },
+                        child: Column(
+                          children: [
+                            Text(
+                              "Following",
+                              style: bodyXLargeText(golbat140),
+                            ),
+                            Text(
+                              state is ProfilePageDataSuccess
+                                  ? state.user.following.length.toString()
+                                  : state is ProfilePhotoUpdating
+                                      ? state.user.following.length.toString()
+                                      : "0",
+                              style: bodyLargeText(golbat140.withOpacity(0.5)),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
