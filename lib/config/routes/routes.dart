@@ -35,8 +35,10 @@ final GoRouter routes = GoRouter(
     ),
     GoRoute(
       path: '/followers-detail-page',
-      builder: (context, state) =>
-          const BasePage(pageContent: FollowersDetailWidget()),
+      builder: (context, state) => BasePage(
+          pageContent: FollowersDetailWidget(
+        user: state.extra as UserManagementEntity,
+      )),
     ),
   ],
 );

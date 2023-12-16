@@ -129,21 +129,29 @@ class ProfilePage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          Text(
-                            "Followers",
-                            style: bodyXLargeText(golbat140),
-                          ),
-                          Text(
-                            state is ProfilePageDataSuccess
-                                ? state.user.followers.length.toString()
-                                : state is ProfilePhotoUpdating
-                                    ? state.user.followers.length.toString()
-                                    : "0",
-                            style: bodyLargeText(golbat140.withOpacity(0.5)),
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          state is ProfilePageDataSuccess
+                              ? context.push('/followers-detail-page',
+                                  extra: state.user)
+                              : null;
+                        },
+                        child: Column(
+                          children: [
+                            Text(
+                              "Followers",
+                              style: bodyXLargeText(golbat140),
+                            ),
+                            Text(
+                              state is ProfilePageDataSuccess
+                                  ? state.user.followers.length.toString()
+                                  : state is ProfilePhotoUpdating
+                                      ? state.user.followers.length.toString()
+                                      : "0",
+                              style: bodyLargeText(golbat140.withOpacity(0.5)),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         width: 24.w,

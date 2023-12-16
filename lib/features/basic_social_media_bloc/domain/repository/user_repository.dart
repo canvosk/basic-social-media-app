@@ -10,4 +10,6 @@ abstract class UserRepository {
   Future<List<UserEntity>> searchUser({required String searchName});
 
   Future<bool> followUser({required UserEntity userToFollow});
+
+  Future<bool> removeUser({required String userId});
 }
