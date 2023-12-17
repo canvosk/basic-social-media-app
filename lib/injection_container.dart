@@ -63,5 +63,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<SearchPageBloc>(() => SearchPageBloc(sl()));
   sl.registerFactory<FollowUserBloc>(() => FollowUserBloc(sl()));
   sl.registerFactory<FollowersBloc>(() => FollowersBloc(sl()));
-  sl.registerFactory<FollowingBloc>(() => FollowingBloc());
+  sl.registerFactory<FollowingBloc>(() => FollowingBloc(sl()));
 }

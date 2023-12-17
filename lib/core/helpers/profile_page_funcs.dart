@@ -14,4 +14,17 @@ class ProfilePageFuncs {
 
     return isIFollow;
   }
+
+  static bool chekUnfollowed(
+      {required List<String> unFollowedUsers, required String userId}) {
+    bool isUnfollowed = false;
+
+    for (var u in unFollowedUsers) {
+      if (u == userId) {
+        isUnfollowed = true;
+      }
+    }
+
+    return isUnfollowed;
+  }
 }
