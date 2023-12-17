@@ -7,24 +7,32 @@ sealed class FollowersState extends Equatable {
   List<Object> get props => [];
 }
 
-final class FollowersInitial extends FollowersState {}
-
-class RemovingFollowers extends FollowersState {
-  final String followersUserId;
-  const RemovingFollowers(this.followersUserId);
-
-  @override
-  List<Object> get props => [followersUserId];
-}
-
-class RemovedFollower extends FollowersState {
+class FollowersBlocLoading extends FollowersState {
+  final UserEntity currentUser;
   final List<FollowerBlocEntity> users;
-  const RemovedFollower(this.users);
+
+  const FollowersBlocLoading({required this.currentUser, required this.users});
 
   @override
-  List<Object> get props => [users];
+  List<Object> get props => [currentUser, users];
 }
 
-class FollowedBack extends FollowersState {}
+class FollowersBlocSuccess extends FollowersState {
+  final UserEntity currentUser;
+  final List<FollowerBlocEntity> users;
 
-class FailedFollowers extends FollowersState {}
+  const FollowersBlocSuccess({required this.currentUser, required this.users});
+
+  @override
+  List<Object> get props => [currentUser, users];
+}
+
+class FollowersBlocFailed extends FollowersState {
+  final UserEntity currentUser;
+  final List<FollowerBlocEntity> users;
+
+  const FollowersBlocFailed({required this.currentUser, required this.users});
+
+  @override
+  List<Object> get props => [currentUser, users];
+}

@@ -19,6 +19,8 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/u
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/register_usecase.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/user_usecase.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/follow_user_bloc/follow_user_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/followers_bloc/followers_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/following_bloc/following_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/local_storage_bloc/local_storage_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/profile_page_bloc/profile_page_bloc.dart';
@@ -60,4 +62,6 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<ProfilePageBloc>(() => ProfilePageBloc(sl(), sl()));
   sl.registerFactory<SearchPageBloc>(() => SearchPageBloc(sl()));
   sl.registerFactory<FollowUserBloc>(() => FollowUserBloc(sl()));
+  sl.registerFactory<FollowersBloc>(() => FollowersBloc(sl()));
+  sl.registerFactory<FollowingBloc>(() => FollowingBloc());
 }

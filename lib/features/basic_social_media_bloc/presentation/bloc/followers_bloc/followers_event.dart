@@ -8,13 +8,15 @@ sealed class FollowersEvent extends Equatable {
 }
 
 class RemoveFollowerEvent extends FollowersEvent {
-  final List<FollowerBlocEntity> followersBlocEntity;
-  final String currentUserId;
-  const RemoveFollowerEvent(this.followersBlocEntity, this.currentUserId);
+  final UserEntity currentUser;
+  final List<FollowerBlocEntity> users;
+
+  const RemoveFollowerEvent({required this.currentUser, required this.users});
 }
 
 class FollowBackFollower extends FollowersEvent {
-  final List<FollowerBlocEntity> followersBlocEntity;
-  final String currentUserId;
-  const FollowBackFollower(this.followersBlocEntity, this.currentUserId);
+  final UserEntity currentUser;
+  final List<FollowerBlocEntity> users;
+
+  const FollowBackFollower({required this.currentUser, required this.users});
 }

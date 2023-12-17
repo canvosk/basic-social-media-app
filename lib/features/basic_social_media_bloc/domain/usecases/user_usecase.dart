@@ -34,4 +34,12 @@ class UserUseCase implements UseCase<UserManagementEntity, String> {
   Future<bool> followUser({required UserEntity userToFollow}) async {
     return await _userRepository.followUser(userToFollow: userToFollow);
   }
+
+  Future<bool> removeUser({required String userId}) async {
+    return await _userRepository.removeUser(userId: userId);
+  }
+
+  Future<bool> unFollowUser({required String userId}) async {
+    return await _userRepository.unFollowUser(userId: userId);
+  }
 }

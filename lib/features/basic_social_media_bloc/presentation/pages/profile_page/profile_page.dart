@@ -148,7 +148,8 @@ class ProfilePage extends StatelessWidget {
                                   : state is ProfilePhotoUpdating
                                       ? state.user.followers.length.toString()
                                       : "0",
-                              style: bodyLargeText(golbat140.withOpacity(0.5)),
+                              style:
+                                  bodyLargeText(golbat140.withOpacity(0.5)),
                             ),
                           ],
                         ),
@@ -175,7 +176,8 @@ class ProfilePage extends StatelessWidget {
                                   : state is ProfilePhotoUpdating
                                       ? state.user.following.length.toString()
                                       : "0",
-                              style: bodyLargeText(golbat140.withOpacity(0.5)),
+                              style:
+                                  bodyLargeText(golbat140.withOpacity(0.5)),
                             ),
                           ],
                         ),

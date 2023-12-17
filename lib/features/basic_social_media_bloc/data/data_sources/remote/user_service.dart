@@ -115,4 +115,50 @@ class UserService {
       return false;
     }
   }
+
+  Future<bool> removeUser({required String userId}) async {
+    try {
+      String myUserId = await _localStorageService.getString(key: "userId");
+
+      await _userCollection
+          .doc(myUserId)
+          .collection("followers")
+          .doc(userId)
+          .delete();
+
+      await _userCollection
+          .doc(userId)
+          .collection("following")
+          .doc(myUserId)
+          .delete();
+
+      return true;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> unFollowUser({required String userId}) async {
+    try {
+      String myUserId = await _localStorageService.getString(key: "userId");
+
+      await _userCollection
+          .doc(myUserId)
+          .collection("following")
+          .doc(userId)
+          .delete();
+
+      await _userCollection
+          .doc(userId)
+          .collection("followers")
+          .doc(myUserId)
+          .delete();
+
+      return true;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
 }

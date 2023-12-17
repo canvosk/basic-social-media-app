@@ -32,4 +32,14 @@ class UserRepositoryImp implements UserRepository {
     return await _userService.followUser(
         userToFollow: UserModel.fromEntity(userToFollow));
   }
+
+  @override
+  Future<bool> removeUser({required String userId}) async {
+    return await _userService.removeUser(userId: userId);
+  }
+
+  @override
+  Future<bool> unFollowUser({required String userId}) async {
+    return await _userService.unFollowUser(userId: userId);
+  }
 }

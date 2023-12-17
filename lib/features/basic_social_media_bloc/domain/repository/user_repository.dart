@@ -12,4 +12,6 @@ abstract class UserRepository {
   Future<bool> followUser({required UserEntity userToFollow});
 
   Future<bool> removeUser({required String userId});
+
+  Future<bool> unFollowUser({required String userId});
 }
