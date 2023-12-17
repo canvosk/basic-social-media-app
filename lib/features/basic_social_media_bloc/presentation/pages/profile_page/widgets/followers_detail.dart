@@ -1,7 +1,6 @@
 import 'package:basic_social_media_app/config/theme/colors.dart';
 import 'package:basic_social_media_app/config/theme/text_styles.dart';
 import 'package:basic_social_media_app/core/helpers/profile_page_funcs.dart';
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/follower_bloc_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_management_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/followers_bloc/followers_bloc.dart';
 import 'package:basic_social_media_app/injection_container.dart';
@@ -59,27 +58,23 @@ class FollowersDetailWidget extends StatelessWidget {
                       },
                       itemBuilder: (context, index) {
                         bool isRemoved = false;
-                        bool isFollowedBack = false;
+
                         if (state is FollowersBlocSuccess) {
-                          isRemoved = ProfilePageFuncs.checkRemoved(
-                              users: state.users,
-                              followerId: user.followers[index].userId);
-
-                          isFollowedBack = ProfilePageFuncs.checkFollowedBack(
-                              users: state.users,
-                              followerId: user.followers[index].userId);
+                          if (state.removedUsers
+                              .contains(user.followers[index].userId)) {
+                            isRemoved = true;
+                          }
                         }
-                        if (state is FollowersBlocLoading) {
-                          isRemoved = ProfilePageFuncs.checkRemoved(
-                              users: state.users,
-                              followerId: user.followers[index].userId);
 
-                          isFollowedBack = ProfilePageFuncs.checkFollowedBack(
-                              users: state.users,
-                              followerId: user.followers[index].userId);
+                        if (state is FollowersBlocLoading) {
+                          if (state.removedUsers
+                              .contains(user.followers[index].userId)) {
+                            isRemoved = true;
+                          }
                         }
 
                         bool isIFollow = false;
+
                         isRemoved
                             ? isIFollow = false
                             : isIFollow = ProfilePageFuncs.checkFollowers(
@@ -153,91 +148,28 @@ class FollowersDetailWidget extends StatelessWidget {
                             state is FollowersBlocSuccess
                                 ? TextButton(
                                     onPressed: () {
-                                      for (var x in state.users) {
-                                        if (user.followers[index].userId ==
-                                            x.user.userId) {
-                                          if (x.isRemoved) {
-                                            FollowerBlocEntity
-                                                newFollowerBlocEntity =
-                                                x.copyWith(isRemoved: false);
-
-                                            List<FollowerBlocEntity> newList =
-                                                state.users;
-
-                                            newList = List.from(newList)
-                                              ..remove(x);
-
-                                            newList = List.from(newList)
-                                              ..add(newFollowerBlocEntity);
-
-                                            context.read<FollowersBloc>().add(
-                                                  FollowBackFollower(
-                                                    currentUser:
-                                                        user.followers[index],
-                                                    users: newList,
-                                                  ),
-                                                );
-                                            return;
-                                          }
-
-                                          FollowerBlocEntity
-                                              newFollowerBlocEntity =
-                                              x.copyWith(isRemoved: true);
-
-                                          List<FollowerBlocEntity> newList =
-                                              state.users;
-
-                                          newList = List.from(newList)
-                                            ..remove(x);
-
-                                          newList = List.from(newList)
-                                            ..add(newFollowerBlocEntity);
-
-                                          context.read<FollowersBloc>().add(
-                                                RemoveFollowerEvent(
-                                                  currentUser:
-                                                      user.followers[index],
-                                                  users: newList,
-                                                ),
-                                              );
-
-                                          return;
-                                        }
+                                      if (isRemoved) {
+                                        return;
                                       }
 
-                                      FollowerBlocEntity followerBlocEntity =
-                                          FollowerBlocEntity(
-                                              user: user.followers[index],
-                                              isRemoved:
-                                                  isIFollow ? true : false,
-                                              isCurrent: true);
+                                      List<String> newList = state.removedUsers;
 
-                                      List<FollowerBlocEntity> newList =
-                                          state.users;
                                       newList = List.from(newList)
-                                        ..add(followerBlocEntity);
+                                        ..add(user.followers[index].userId);
 
-                                      isIFollow
-                                          ? context.read<FollowersBloc>().add(
-                                                RemoveFollowerEvent(
-                                                  currentUser:
-                                                      user.followers[index],
-                                                  users: newList,
-                                                ),
-                                              )
-                                          : context.read<FollowersBloc>().add(
-                                                FollowBackFollower(
-                                                  currentUser:
-                                                      user.followers[index],
-                                                  users: newList,
-                                                ),
-                                              );
+                                      context.read<FollowersBloc>().add(
+                                            RemoveFollowerEvent(
+                                              currentUser:
+                                                  user.followers[index],
+                                              removedUsers: newList,
+                                            ),
+                                          );
                                     },
                                     child: Text(isRemoved
-                                        ? "Follow Back"
-                                        : isFollowedBack || isIFollow
+                                        ? "Removed"
+                                        : isIFollow
                                             ? "Remove"
-                                            : "Follow Back"),
+                                            : "Removed"),
                                   )
                                 : state is FollowersBlocLoading
                                     ? TextButton(
@@ -246,10 +178,10 @@ class FollowersDetailWidget extends StatelessWidget {
                                                 user.followers[index].userId
                                             ? const CircularProgressIndicator()
                                             : Text(isRemoved
-                                                ? "Follow Back"
-                                                : isFollowedBack || isIFollow
+                                                ? "Removed"
+                                                : isIFollow
                                                     ? "Remove"
-                                                    : "Follow Back"),
+                                                    : "Removed"),
                                       )
                                     : Container(),
                           ],

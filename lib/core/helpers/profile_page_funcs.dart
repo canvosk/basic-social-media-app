@@ -1,4 +1,3 @@
-import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/follower_bloc_entity.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/entities/user_management_entity.dart';
 
 class ProfilePageFuncs {
@@ -14,31 +13,5 @@ class ProfilePageFuncs {
     }
 
     return isIFollow;
-  }
-
-  static bool checkRemoved(
-      {required List<FollowerBlocEntity> users, required String followerId}) {
-    bool isRemoved = false;
-
-    for (var user in users) {
-      if (followerId == user.user.userId && user.isRemoved) {
-        isRemoved = true;
-      }
-    }
-
-    return isRemoved;
-  }
-
-  static bool checkFollowedBack(
-      {required List<FollowerBlocEntity> users, required String followerId}) {
-    bool isRemoved = false;
-
-    for (var user in users) {
-      if (followerId == user.user.userId && !user.isRemoved) {
-        isRemoved = true;
-      }
-    }
-
-    return isRemoved;
   }
 }
