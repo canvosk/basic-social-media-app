@@ -5,6 +5,7 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/presenta
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/management_page/management_page.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/profile_page/widgets/followers_detail.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/profile_page/widgets/following_detail.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/share_post_page/share_post_page.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -39,6 +40,10 @@ final GoRouter routes = GoRouter(
           pageContent: FollowersDetailWidget(
         user: state.extra as UserManagementEntity,
       )),
+    ),
+    GoRoute(
+      path: '/share-post-page',
+      builder: (context, state) => const BasePage(pageContent: SharePostPage()),
     ),
   ],
 );

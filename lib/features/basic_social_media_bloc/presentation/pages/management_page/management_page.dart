@@ -30,31 +30,31 @@ class ManagementPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     state.index == 2
-                        ? Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 8.w),
-                              child: BlocListener<LocalStorageBloc,
-                                  LocalStorageState>(
-                                listener: (context, state) {
-                                  if (state is NoUser) {
-                                    context.go('/login-page');
-                                  }
-                                },
-                                child: IconButton(
-                                  onPressed: () {
-                                    context
-                                        .read<LocalStorageBloc>()
-                                        .add(const RemoveValue(
-                                          'userId',
-                                        ));
-                                  },
-                                  icon: const Icon(Icons.logout_rounded),
+                            ? Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 8.w),
+                                  child: BlocListener<LocalStorageBloc,
+                                      LocalStorageState>(
+                                    listener: (context, state) {
+                                      if (state is NoUser) {
+                                        context.go('/login-page');
+                                      }
+                                    },
+                                    child: IconButton(
+                                      onPressed: () {
+                                        context
+                                            .read<LocalStorageBloc>()
+                                            .add(const RemoveValue(
+                                              'userId',
+                                            ));
+                                      },
+                                      icon: const Icon(Icons.logout_rounded),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          )
-                        : Container(),
+                              )
+                            : Container(),
                     Expanded(child: state.content),
                   ],
                 );
