@@ -16,47 +16,57 @@ class SharePostPage extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          context.pop();
-                        },
-                        icon: Icon(
-                          Icons.arrow_back_rounded,
-                          size: 24.w,
-                          color: golbat140,
-                        ),
-                      ),
-                      Text(
-                        "Share Post",
-                        style: nameText(golbat140),
-                      ),
-                    ],
-                  ),
                   IconButton(
                     onPressed: () {
                       context.pop();
                     },
                     icon: Icon(
-                      Icons.photo,
+                      Icons.arrow_back_rounded,
                       size: 24.w,
                       color: golbat140,
                     ),
                   ),
+                  Text(
+                    "Share Post",
+                    style: nameText(golbat140),
+                  ),
                 ],
+              ),
+              IconButton(
+                onPressed: () {
+                  //TODO: Fotoğraf eklenecekse buradan eklenecek
+                },
+                icon: Icon(
+                  Icons.photo,
+                  size: 24.w,
+                  color: golbat140,
+                ),
               ),
             ],
           ),
           Expanded(
             child: MyPostTextField(
               controller: postController,
-              hintText: "Neler oluyor?",
+              hintText: "What's happening?",
               keyboardType: TextInputType.multiline,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              //TODO: Girilen değerleri paylaş
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: golbat140,
+              padding: EdgeInsets.symmetric(horizontal: 48.w,vertical: 12.h),
+            ),
+            child: Text(
+              "Share",
+              style: bodyLargeText(bgColor),
             ),
           ),
         ],
