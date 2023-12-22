@@ -1,7 +1,10 @@
 import 'package:basic_social_media_app/config/theme/colors.dart';
 import 'package:basic_social_media_app/config/theme/text_styles.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/share_post_bloc/share_post_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/pages/home_page/widgets/post_widget.dart';
+import 'package:basic_social_media_app/injection_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,14 +30,17 @@ class HomePage extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: Padding(
                 padding: EdgeInsets.only(right: 8.w, bottom: 12.h),
-                child: IconButton(
-                  onPressed: () {
-                    debugPrint("Post gönderme ekranı");
-                    context.push('/share-post-page');
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    size: 28.w,
+                child: BlocProvider(
+                  create: (context) => SharePostBloc(sl()),
+                  child: IconButton(
+                    onPressed: () {
+                      debugPrint("Post gönderme ekranı");
+                      context.push('/share-post-page');
+                    },
+                    icon: Icon(
+                      Icons.add,
+                      size: 28.w,
+                    ),
                   ),
                 ),
               ),

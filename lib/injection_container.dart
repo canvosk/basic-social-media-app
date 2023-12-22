@@ -2,16 +2,19 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/data/dat
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/local/local_storage_services.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/authentication_service.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/firebase_storage_service.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/post_service.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/data_sources/remote/user_service.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/repository/authentication_repository_imp.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/repository/firebase_storage_repository_imp.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/repository/image_picker_repository_imp.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/repository/local_storage_repository_imp.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/data/repository/post_repository_imp.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/data/repository/user_repository_imp.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/authentication_repository.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/firebase_storage_repository.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/image_picker_repository.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/local_storage_repository.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/post_repository.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/repository/user_repository.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/image_picker_usecase.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/local_storage_usecase.dart';
@@ -26,6 +29,7 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/presenta
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/profile_page_bloc/profile_page_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/register_bloc/register_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/search_page_bloc/search_page_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/share_post_bloc/share_post_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -38,6 +42,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<LocalStorageService>(LocalStorageService());
   sl.registerSingleton<UserService>(UserService(sl()));
   sl.registerSingleton<ImagePickerServices>(ImagePickerServices());
+  sl.registerSingleton<PostService>(PostService(sl()));
   LocalStorageService().init();
 
   sl.registerSingleton<AuthenticationRepository>(
@@ -47,6 +52,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<FirebaseStorageRepository>(
       FirebaseStorageRepositoryImp(sl()));
   sl.registerSingleton<ImagePickerRepository>(ImagePickerRepositoryImp(sl()));
+  sl.registerSingleton<PostRepository>(PostRepositoryImp(sl()));
 
   //UseCases
   sl.registerSingleton<RegisterUseCase>(RegisterUseCase(sl()));
@@ -64,4 +70,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<FollowUserBloc>(() => FollowUserBloc(sl()));
   sl.registerFactory<FollowersBloc>(() => FollowersBloc(sl()));
   sl.registerFactory<FollowingBloc>(() => FollowingBloc(sl()));
+  sl.registerFactory<SharePostBloc>(() => SharePostBloc(sl()));
 }
