@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(right: 8.w, bottom: 12.h),
                 child: BlocProvider(
-                  create: (context) => SharePostBloc(sl()),
+                  create: (context) => SharePostBloc(sl(),sl()),
                   child: IconButton(
                     onPressed: () {
                       debugPrint("Post gönderme ekranı");

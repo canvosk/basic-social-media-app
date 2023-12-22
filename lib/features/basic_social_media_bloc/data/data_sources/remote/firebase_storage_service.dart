@@ -39,4 +39,24 @@ class FirebaseStorageService {
 
     return imageUrl;
   }
+
+  Future<String?> uploadPostImageToFirebase(File imageFile) async {
+    try {
+      String fileName = basename(imageFile.path);
+
+      Reference firebaseStorageRef =
+          _storage.ref().child('post_images/$fileName');
+
+      UploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
+
+      TaskSnapshot taskSnapshot = await uploadTask;
+
+      String imageUrl = await taskSnapshot.ref.getDownloadURL();
+
+      return imageUrl;
+    } catch (e) {
+      debugPrint(e.toString());
+      return "";
+    }
+  }
 }

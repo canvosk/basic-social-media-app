@@ -17,4 +17,9 @@ class FirebaseStorageRepositoryImp implements FirebaseStorageRepository {
   Future<String> uploadImageToFirebase(File file) async {
     return await _firebaseStorageService.uploadImageToFirebase(file) ?? "";
   }
+
+  @override
+  Future<String> uploadPostImageToFirebase(File file) async{
+    return await _firebaseStorageService.uploadPostImageToFirebase(file) ?? "";
+  }
 }

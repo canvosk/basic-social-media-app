@@ -19,6 +19,7 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/r
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/image_picker_usecase.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/local_storage_usecase.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/login_usecase.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/post_usecase.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/register_usecase.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/domain/usecases/user_usecase.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/follow_user_bloc/follow_user_bloc.dart';
@@ -60,6 +61,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<LocalStorageUseCase>(LocalStorageUseCase(sl()));
   sl.registerSingleton<UserUseCase>(UserUseCase(sl(), sl()));
   sl.registerSingleton<ImagePickerUseCase>(ImagePickerUseCase(sl()));
+  sl.registerSingleton<PostUseCase>(PostUseCase(sl(), sl()));
 
   //Blocs
   sl.registerFactory<RegisterBloc>(() => RegisterBloc(sl()));
@@ -70,5 +72,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<FollowUserBloc>(() => FollowUserBloc(sl()));
   sl.registerFactory<FollowersBloc>(() => FollowersBloc(sl()));
   sl.registerFactory<FollowingBloc>(() => FollowingBloc(sl()));
-  sl.registerFactory<SharePostBloc>(() => SharePostBloc(sl()));
+  sl.registerFactory<SharePostBloc>(() => SharePostBloc(sl(),sl()));
 }

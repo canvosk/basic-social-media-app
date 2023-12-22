@@ -5,6 +5,7 @@ import 'package:basic_social_media_app/features/basic_social_media_bloc/presenta
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/local_storage_bloc/local_storage_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/profile_page_bloc/profile_page_bloc.dart';
 import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/search_page_bloc/search_page_bloc.dart';
+import 'package:basic_social_media_app/features/basic_social_media_bloc/presentation/bloc/share_post_bloc/share_post_bloc.dart';
 import 'package:basic_social_media_app/firebase_options.dart';
 import 'package:basic_social_media_app/injection_container.dart';
 import 'package:basic_social_media_app/simple_bloc_observer.dart';
@@ -51,6 +52,9 @@ class MainApp extends StatelessWidget {
               ),
               BlocProvider<FollowUserBloc>(
                 create: (context) => FollowUserBloc(sl()),
+              ),
+              BlocProvider<SharePostBloc>(
+                create: (context) => SharePostBloc(sl(),sl()),
               ),
             ],
             child: MaterialApp.router(

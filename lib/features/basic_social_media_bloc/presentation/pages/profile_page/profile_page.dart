@@ -81,7 +81,7 @@ class ProfilePage extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: GestureDetector(
                                 onTap: () {
-                                  profilePhotoBottomSheet(context);
+                                  profilePhotoBottomSheet(context:context,isProfile: true);
                                 },
                                 child: Container(
                                   decoration: const BoxDecoration(
